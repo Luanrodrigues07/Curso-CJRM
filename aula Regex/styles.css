@@ -1,0 +1,22 @@
+body {
+    background-color: gray;
+}
+
+h1{
+    text-align: center;
+}
+
+form {
+    max-width: 200px;
+    margin: 40px auto;
+    background: white;
+    padding: 10px;
+    border-radius: 0.5rem;
+    
+}
+
+input, button {
+    display: block;
+    margin: 10px auto;
+    padding: 4px;
+}
