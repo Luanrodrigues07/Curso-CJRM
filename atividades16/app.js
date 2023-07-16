@@ -2,7 +2,6 @@
   Apenas 3 exercícios, mas que exigem um certo nível de conhecimento do que  
   vimos até aqui =)
 */
- const form = document.querySelector('form')
 
 /*
   01
@@ -21,18 +20,34 @@
   
   Dica: pesquise pelo método "insertAdjacentElement", no MDN;
 */
-const regex = /[a-zA-Z]{6,}/
-const userset = username => regex.test(username)
 
-form.addEventListener('submit', event => {
-    event.preventDefault()
-    const validation = userset(event.target.username.value)
+const input = document.querySelector('#username')
+const button = document.querySelector('button')
+const paragraphUserName = document.createElement('p')
+const paragraphInput = document.createElement('p')
 
-    if (validation) {
-        console.log('sucees')
-        return
-    }
-    console.log('not succes')
+const regex = /^[a-zA-Z]{6,}$/
+
+paragraphInput.setAttribute('data-feedback', 'submit-feedback')
+
+input.addEventListener('input', event => {
+  const userset = event.target.value
+
+  const paragraphSubmitSuccess = document.querySelector('[data-feedback="submit-feedback"]')
+
+  if(paragraphSubmitSuccess) {
+    paragraphSubmitSuccess.remove()
+  }
+  
+  if(!regex.test(userset)){
+   paragraphUserName.textContent = 'O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas'
+   paragraphUserName.setAttribute('class', 'username-help-feedback')
+    event.target.insertAdjacentElement('afterend', paragraphUserName)
+    return
+  }
+   paragraphUserName.textContent = 'Username válido =)'
+   paragraphUserName.setAttribute('class','username-success-feedback')
+    event.target.insertAdjacentElement('afterend', paragraphUserName)
 })
 /*
   02
@@ -45,7 +60,21 @@ form.addEventListener('submit', event => {
   - Use as classes disponíveis no arquivo style.css para colorir o parágrafo;
   - Não insira o parágrafo manualmente no index.html.
 */
+const form = document.querySelector('form')
+form.addEventListener('submit', event => {
+  event.preventDefault()
+  const inputValue = input.value
 
+  if(!regex.test(inputValue)) {
+    paragraphInput.textContent = 'Por favor, insira um username válido'
+    paragraphInput.setAttribute('class', 'submit-help-feedback')
+    button.insertAdjacentElement('afterend', paragraphInput)
+    return
+  }
+  paragraphInput.textContent = 'Dados enviados =)'
+  paragraphInput.setAttribute('class', 'submit-success-feedback ')
+  button.insertAdjacentElement('afterend', paragraphInput)
+})
 /*
   03
 
@@ -63,3 +92,13 @@ form.addEventListener('submit', event => {
         6;
     2) Pesquisar no MDN.
 */
+
+const some = (array, func) => {
+  for(i = 0; i < array.length; i++) {
+    if (func(array[i])) {
+      return true
+    }
+  }
+  return false
+}
+
