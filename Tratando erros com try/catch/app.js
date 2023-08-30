@@ -14,7 +14,7 @@ form.addEventListener('submit', async event => {
             throw new Error('nao foi possivel obter os dados')
         }
         const giftdate = await response.json()
-        console.log(giftdate)
+        console.log(giftdate.data[0].images.downsized.url)
     } catch (error) {
         alert(`erro: ${error.message}`)
     }
